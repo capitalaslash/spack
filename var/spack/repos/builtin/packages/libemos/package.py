@@ -14,6 +14,7 @@ class Libemos(CMakePackage):
     url      = "https://software.ecmwf.int/wiki/download/attachments/3473472/libemos-4.4.2-Source.tar.gz"
     list_url = "https://software.ecmwf.int/wiki/display/EMOS/Releases"
 
+    version('4.5.9', sha256='e57e02c636dc8f5ccb862a103789b1e927bc985b1e0f2b05abf4f64e86d2f67f')
     version('4.5.5', sha256='60478d2aeb21356bf9aba5433b709b34a27a1f2e')
     version('4.5.4', sha256='3533caab33cb63518e3a39dbb067003474ce3010')
     version('4.5.1', sha256='c982d9fd7dcd15c3a4d1e1115b90430928b660e17f73f7d4e360dd9f87f68c46')
