@@ -25,7 +25,7 @@ class Libemos(CMakePackage):
 
     variant('grib', default='eccodes', values=('eccodes', 'grib-api'),
             description='Specify GRIB backend')
-    variant('build_type', default='RelWithDebInfo',
+    variant('build_type', default='Production',
             description='The build type to build',
             values=('Debug', 'Release', 'RelWithDebInfo', 'Production'))
 
@@ -43,6 +43,7 @@ class Libemos(CMakePackage):
 
         if self.spec.variants['grib'].value == 'eccodes':
             args.append('-DENABLE_ECCODES=ON')
+            args.append('-DGRIB_API_PATH={}'.format(self.spec['eccodes'].prefix))
         else:
             if self.spec.satisfies('@4.4.2:'):
                 args.append('-DENABLE_ECCODES=OFF')
