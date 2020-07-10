@@ -32,6 +32,7 @@ class Metview(CMakePackage):
     url      = "https://software.ecmwf.int/wiki/download/attachments/3964985/Metview-5.0.1-Source.tar.gz"
     #url      = "https://software.ecmwf.int/wiki/download/attachments/3964985/Metview-4.8.7-Source.tar.gz"
 
+    version('5.9.0', sha256='6bbcf15602a21c8fee4276ec11179c6f95247eeaf08a870181ec339a7c5b80ba')
     version('5.7.2', sha256='8cc1c156902b62c5a2eeb6d51cc7c898878ee616973ea3903d2fafbe5283c532')
     version('5.6.1', sha256='5e1abf46e290911fe90cb35957c45ab61901c285b9a70e195a04d17608b86fd0')
     version('5.5.0', sha256='3841b097de7bc68e467a0cf7b829cdd0ac4485768eec9ae6426865ce56a48652')
@@ -51,6 +52,8 @@ class Metview(CMakePackage):
     depends_on('magics grib=eccodes +metview +qt +netcdf +cairo')
     depends_on('netcdf-cxx')
     depends_on('libtirpc')
+
+    patch('string.patch')
 
     def cmake_args(self):
         spec = self.spec
