@@ -40,8 +40,8 @@ class Eccodes(CMakePackage):
     """ecCodes is a package developed by ECMWF for processing meteorological
     data in GRIB (1/2), BUFR (3/4) and GTS header formats."""
 
-    homepage = "https://software.ecmwf.int/wiki/display/ECC/ecCodes+Home"
-    url = "https://confluence.ecmwf.int/download/attachments/45757960/eccodes-2.2.0-Source.tar.gz?api=v2"
+    homepage = "https://confluence.ecmwf.int/display/ECC/ecCodes+Home"
+    url = "https://confluence.ecmwf.int/download/attachments/45757960/eccodes-2.24.1-Source.tar.gz"
     git = "https://github.com/ecmwf/eccodes.git"
     list_url = "https://confluence.ecmwf.int/display/ECC/Releases"
 
@@ -64,6 +64,8 @@ class Eccodes(CMakePackage):
     version("2.19.1", sha256="9964bed5058e873d514bd4920951122a95963128b12f55aa199d9afbafdd5d4b")
     version("2.18.0", sha256="d88943df0f246843a1a062796edbf709ef911de7269648eef864be259e9704e3")
     version("2.13.0", sha256="c5ce1183b5257929fc1f1c8496239e52650707cfab24f4e0e1f1a471135b8272")
+    version("2.12.5", sha256="c5ce1183b5257929fc1f1c8496239e52650707cfab24f4e0e1f1a471135b8272")
+    version("2.10.0", sha256="c5ce1183b5257929fc1f1c8496239e52650707cfab24f4e0e1f1a471135b8272")
     version("2.5.0", sha256="18ab44bc444168fd324d07f7dea94f89e056f5c5cd973e818c8783f952702e4e")
     version("2.2.0", sha256="1a4112196497b8421480e2a0a1164071221e467853486577c4f07627a702f4c3")
 
@@ -146,7 +148,7 @@ class Eccodes(CMakePackage):
     patch("openjpeg_jasper.patch", when="@:2.16")
 
     # CMAKE_INSTALL_RPATH must be a semicolon-separated list.
-    patch("cmake_install_rpath.patch", when="@:2.10")
+    patch("cmake_install_rpath.patch", when="@:2.9")
 
     # Fix a bug preventing cmake from finding NetCDF:
     patch(
@@ -185,21 +187,21 @@ class Eccodes(CMakePackage):
                     "examples/F90/grib_print_data_static.f90",
                     # Files that need patching only when the extended regression
                     # tests are enabled, which we disable unconditionally:
-                    # 'examples/F90/bufr_attributes.f90',
-                    # 'examples/F90/bufr_expanded.f90',
-                    # 'examples/F90/bufr_get_keys.f90',
-                    # 'examples/F90/bufr_read_scatterometer.f90',
-                    # 'examples/F90/bufr_read_synop.f90',
-                    # 'examples/F90/bufr_read_temp.f90',
-                    # 'examples/F90/bufr_read_tempf.f90',
-                    # 'examples/F90/bufr_read_tropical_cyclone.f90',
-                    # 'examples/F90/grib_clone.f90',
-                    # 'examples/F90/grib_get_data.f90',
-                    # 'examples/F90/grib_nearest.f90',
-                    # 'examples/F90/grib_precision.f90',
-                    # 'examples/F90/grib_read_from_file.f90',
-                    # 'examples/F90/grib_samples.f90',
-                    # 'examples/F90/grib_set_keys.f90'
+                    # "examples/F90/bufr_attributes.f90",
+                    # "examples/F90/bufr_expanded.f90",
+                    # "examples/F90/bufr_get_keys.f90",
+                    # "examples/F90/bufr_read_scatterometer.f90",
+                    # "examples/F90/bufr_read_synop.f90",
+                    # "examples/F90/bufr_read_temp.f90",
+                    # "examples/F90/bufr_read_tempf.f90",
+                    # "examples/F90/bufr_read_tropical_cyclone.f90",
+                    # "examples/F90/grib_clone.f90",
+                    # "examples/F90/grib_get_data.f90",
+                    # "examples/F90/grib_nearest.f90",
+                    # "examples/F90/grib_precision.f90",
+                    # "examples/F90/grib_read_from_file.f90",
+                    # "examples/F90/grib_samples.f90",
+                    # "examples/F90/grib_set_keys.f90"
                 ]
             )
 
@@ -210,11 +212,11 @@ class Eccodes(CMakePackage):
                     "examples/F90/grib_set_packing.f90",
                     # Files that need patching only when the extended regression
                     # tests are enabled, which we disable unconditionally:
-                    # 'examples/F90/bufr_copy_data.f90',
-                    # 'examples/F90/bufr_get_string_array.f90',
-                    # 'examples/F90/bufr_keys_iterator.f90',
-                    # 'examples/F90/get_product_kind.f90',
-                    # 'examples/F90/grib_count_messages_multi.f90'
+                    # "examples/F90/bufr_copy_data.f90",
+                    # "examples/F90/bufr_get_string_array.f90",
+                    # "examples/F90/bufr_keys_iterator.f90",
+                    # "examples/F90/get_product_kind.f90",
+                    # "examples/F90/grib_count_messages_multi.f90"
                 ]
             )
 
@@ -354,6 +356,23 @@ class Eccodes(CMakePackage):
             # Prevent overriding by environment variables AEC_DIR and AEC_PATH:
             args.append(self.define("AEC_DIR", self.spec["libaec"].prefix))
 
+        if "^python" in self.spec:
+            args.append(self.define("PYTHON_EXECUTABLE", python.path))
+
+        definitions = self.spec.variants["extra_definitions"].value
+
+        if "auto" not in definitions:
+            args.append(
+                self.define("ENABLE_INSTALL_ECCODES_DEFINITIONS", "default" in definitions)
+            )
+
+        samples = self.spec.variants["samples"].value
+
+        if "auto" not in samples:
+            args.append(self.define("ENABLE_INSTALL_ECCODES_SAMPLES", "default" in samples))
+
+        if "+fortran" in self.spec:
+            args.append("-DCMAKE_Fortran_FLAGS=-fallow-argument-mismatch")
         return args
 
     @run_after("install")
