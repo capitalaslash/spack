@@ -141,6 +141,8 @@ class Eccodes(CMakePackage):
         if '^python' in self.spec:
             args.append('-DPYTHON_EXECUTABLE:FILEPATH=' + python.path)
 
+        if '+fortran' in self.spec:
+            args.append('-DCMAKE_Fortran_FLAGS=-fallow-argument-mismatch')
         return args
 
     def check(self):
