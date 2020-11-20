@@ -14,13 +14,17 @@ class Magics(CMakePackage):
        software MAGICS. Although completely redesigned in C++, it is intended
        to be as backwards-compatible as possible with the Fortran interface."""
 
-    homepage = "https://software.ecmwf.int/wiki/display/MAGP/Magics"
+    homepage = "https://confluence.ecmwf.int/display/MAGP/Magics"
     url      = "https://confluence.ecmwf.int/download/attachments/3473464/Magics-4.2.4-Source.tar.gz?api=v2"
-    list_url = "https://software.ecmwf.int/wiki/display/MAGP/Releases"
+    list_url = "https://confluence.ecmwf.int/display/MAGP/Releases"
 
     # The policy on which minor releases remain available and which get deleted
     # after a newer version becomes available is unclear.
+    version('4.10.0', sha256='ace62189425030ef151c811939a3d027cada5cfa683f65ab68d30c8864b93e3b')
     version('4.9.3', sha256='c01ee7c4b05c5512e93e573748d2766d299fa1a60c226f2a0d0989f3d7c5239b')
+    version('4.5.1', sha256='11a7f4dfff5b6ecb4d290441ae0700271c4578ca3addfb91d53007b174e47674')
+    version('4.5.0', sha256='d6f5682772ba7012f845b0c37f7bbaf5e12e6e9cf36da7524b234d8dc073ad2c')
+    version('4.4.1', sha256='28d3a7ac4c96a9f699fad0b28cd6a3cb9a8dc4f2a40dcafe271552cba3faec37')
     version('4.4.0', sha256='544058cd334f3e28a16d00ea7811e13cdf282f9c1ebec2ad7868171d925abd24')
     version('4.3.3', sha256='27d3de71cf41f3d557fd85dabaea2baaab34c4c6422a5b5b15071a6a53387601')
     version('4.3.1', sha256='b1995e2f5bf24943715446d1302cc5d7de4cacfe4cee7c3cfd1037ac183cd181')
