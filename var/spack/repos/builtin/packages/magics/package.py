@@ -14,9 +14,9 @@ class Magics(CMakePackage):
        software MAGICS. Although completely redesigned in C++, it is intended
        to be as backwards-compatible as possible with the Fortran interface."""
 
-    homepage = "https://software.ecmwf.int/wiki/display/MAGP/Magics"
+    homepage = "https://confluence.ecmwf.int/display/MAGP/Magics"
     url      = "https://confluence.ecmwf.int/download/attachments/3473464/Magics-4.2.4-Source.tar.gz?api=v2"
-    list_url = "https://software.ecmwf.int/wiki/display/MAGP/Releases"
+    list_url = "https://confluence.ecmwf.int/display/MAGP/Releases"
 
     # The policy on which minor releases remain available and which get deleted
     # after a newer version becomes available is unclear.
