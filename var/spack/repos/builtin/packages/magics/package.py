@@ -20,6 +20,7 @@ class Magics(CMakePackage):
 
     # The policy on which minor releases remain available and which get deleted
     # after a newer version becomes available is unclear.
+    version('4.10.0', sha256='ace62189425030ef151c811939a3d027cada5cfa683f65ab68d30c8864b93e3b')
     version('4.9.3', sha256='c01ee7c4b05c5512e93e573748d2766d299fa1a60c226f2a0d0989f3d7c5239b')
     version('4.5.1', sha256='11a7f4dfff5b6ecb4d290441ae0700271c4578ca3addfb91d53007b174e47674')
     version('4.5.0', sha256='d6f5682772ba7012f845b0c37f7bbaf5e12e6e9cf36da7524b234d8dc073ad2c')
