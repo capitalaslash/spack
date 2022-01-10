@@ -28,9 +28,8 @@ from spack import *
 class Metview(CMakePackage):
     """ECMWF interactive meteorological application."""
 
-    homepage = "https://software.ecmwf.int/wiki/display/METV/Metview"
-    url      = "https://software.ecmwf.int/wiki/download/attachments/3964985/Metview-5.0.1-Source.tar.gz"
-    #url      = "https://software.ecmwf.int/wiki/download/attachments/3964985/Metview-4.8.7-Source.tar.gz"
+    homepage = "https://confluence.ecmwf.int/display/METV/Metview"
+    url      = "https://confluence.ecmwf.int/download/attachments/3964985/Metview-5.0.1-Source.tar.gz"
 
     version('5.9.0', sha256='6bbcf15602a21c8fee4276ec11179c6f95247eeaf08a870181ec339a7c5b80ba')
     version('5.7.2', sha256='8cc1c156902b62c5a2eeb6d51cc7c898878ee616973ea3903d2fafbe5283c532')
