@@ -31,6 +31,7 @@ class Metview(CMakePackage):
     homepage = "https://confluence.ecmwf.int/display/METV/Metview"
     url      = "https://confluence.ecmwf.int/download/attachments/3964985/Metview-5.0.1-Source.tar.gz"
 
+    version('5.14.0', sha256='aa3b3046e6c4475dcd02ee38c25cfb9487474aefd58a5a27307c9763c3ec511d')
     version('5.9.0', sha256='6bbcf15602a21c8fee4276ec11179c6f95247eeaf08a870181ec339a7c5b80ba')
     version('5.7.2', sha256='8cc1c156902b62c5a2eeb6d51cc7c898878ee616973ea3903d2fafbe5283c532')
     version('5.6.1', sha256='5e1abf46e290911fe90cb35957c45ab61901c285b9a70e195a04d17608b86fd0')
