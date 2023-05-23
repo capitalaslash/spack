@@ -20,6 +20,8 @@ class SalomeMedcoupling(CMakePackage):
 
     license("LGPL-2.1-or-later")
 
+    version("9.9.0", tag="V9_9_0", commit="5b2a9cc1cc18fffd5674a589aacf368008983b45")
+    version("9.8.0", tag="V9_8_0", commit="8a82259c9a9228c54efeddd52d4afe6c0e397c30")
     version("9.7.0", tag="V9_7_0", commit="773434a7f2a5cbacc2f50e93ea6d6a48a157acd9")
     version("9.6.0", tag="V9_6_0", commit="2c14a65b40252770b3503945405f5bdb2f29f8e2")
     version("9.5.0", tag="V9_5_0", commit="dd75474d950baf8ff862b03cb1685f2a2d562846")
@@ -45,6 +47,18 @@ class SalomeMedcoupling(CMakePackage):
     depends_on("metis@5.1.0:", when="+metis")
     depends_on("scotch@6.0.4:", when="+scotch")
     depends_on("mpi", when="+mpi")
+
+    depends_on("salome-configuration@9.9.0", when="@9.9.0")
+    depends_on("salome-med@4.1.0+mpi+static", when="@9.9.0+mpi+static")
+    depends_on("salome-med@4.1.0+mpi", when="@9.9.0+mpi")
+    depends_on("salome-med@4.1.0+static", when="@9.9.0~mpi+static")
+    depends_on("salome-med@4.1.0", when="@9.9.0~mpi")
+
+    depends_on("salome-configuration@9.8.0", when="@9.8.0")
+    depends_on("salome-med@4.1.0+mpi+static", when="@9.8.0+mpi+static")
+    depends_on("salome-med@4.1.0+mpi", when="@9.8.0+mpi")
+    depends_on("salome-med@4.1.0+static", when="@9.8.0~mpi+static")
+    depends_on("salome-med@4.1.0", when="@9.8.0~mpi")
 
     depends_on("salome-configuration@9.7.0", when="@9.7.0")
     depends_on("salome-med@4.1.0+mpi+static", when="@9.7.0+mpi+static")
