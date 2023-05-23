@@ -18,6 +18,8 @@ class SalomeConfiguration(Package):
     homepage = "https://www.salome-platform.org"
     git = "https://git.salome-platform.org/gitpub/tools/configuration.git"
 
+    version("9.9.0", tag="V9_9_0")
+    version("9.8.0", tag="V9_8_0")
     version("9.7.0", tag="V9_7_0")
     version("9.6.0", tag="V9_6_0")
     version("9.5.0", tag="V9_5_0")
@@ -25,7 +27,7 @@ class SalomeConfiguration(Package):
     version("9.3.0", tag="V9_3_0")
 
     patch("SalomeMacros.patch", working_dir="./cmake")
-    patch("FindSalomeHDF5.patch", working_dir="./cmake")
+    patch("FindSalomeHDF5.patch", when="@:9.7.0", working_dir="./cmake")
 
     def setup_dependent_build_environment(self, env, dependent_spec):
         env.set("CONFIGURATION_ROOT_DIR", self.prefix)
