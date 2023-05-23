@@ -18,6 +18,7 @@ class Libmesh(AutotoolsPackage):
 
     version("master", branch="master", submodules=True)
 
+    version("1.7.0", sha256="bcadf5fc06b8be1a09b274cf5e2b5e472675ee8458ab30d31c969028f690f3e3")
     version("1.4.1", sha256="67eb7d5a9c954d891ca1386b70f138333a87a141d9c44213449ca6be69a66414")
     version("1.4.0", sha256="62d7fce89096c950d1b38908484856ea63df57754b64cde6582e7ac407c8c81d")
     version("1.3.1", sha256="638cf30d05c249315760f16cbae4804964db8857a04d5e640f37617bef17ab0f")
@@ -134,6 +135,7 @@ class Libmesh(AutotoolsPackage):
     depends_on(Boost.with_default_variants, when="+boost")
     depends_on("eigen", when="+eigen")
     depends_on("hdf5+mpi", when="+hdf5+mpi")
+    depends_on("libtirpc")
     depends_on("mpi", when="+mpi")
     depends_on("mpi", when="+slepc")
     # compilation dependencies depend on perl
