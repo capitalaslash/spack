@@ -30,14 +30,16 @@ class SalomeMedcoupling(CMakePackage):
     variant("partitioner", default=False, description="Enable partitioner")
     variant("metis", default=False, description="Enable Metis")
     variant("scotch", default=False, description="Enable Scotch")
+    variant("python", default=False, description="Enable python bindings")
 
     depends_on("libxml2@2.9.1:")
     depends_on("libtirpc")
     depends_on("cppunit")
-    depends_on("python@3.6.5:")
-    depends_on("py-scipy@0.19.1:", type=("build", "run"))
-    depends_on("py-numpy@1.15.1:", type=("build", "run"))
-    depends_on("boost+python+numpy@1.58.0:")
+    depends_on("python@3.6.5:", when="+python")
+    depends_on("py-scipy@0.19.1:", type=("build", "run"), when="+python")
+    depends_on("py-numpy@1.15.1:", type=("build", "run"), when="+python")
+    depends_on("boost+python+numpy@1.58.0:", when="+python")
+    depends_on("boost@1.58.0:", when="~python")
     depends_on("swig@3.0.12:", type="build")
 
     depends_on("metis@5.1.0:", when="+metis")
@@ -130,10 +132,14 @@ class SalomeMedcoupling(CMakePackage):
         else:
             options.extend(["-DMEDCOUPLING_PARTITIONER_SCOTCH=OFF"])
 
+        if "+python" in spec:
+            options.extend(["-DMEDCOUPLING_ENABLE_PYTHON=ON"])
+        else:
+            options.extend(["-DMEDCOUPLING_ENABLE_PYTHON=OFF"])
+
         options.extend(
             [
                 "-DMEDCOUPLING_BUILD_DOC=OFF",
-                "-DMEDCOUPLING_ENABLE_PYTHON=ON",
                 "-DMEDCOUPLING_ENABLE_RENUMBER=OFF",
                 "-DMEDCOUPLING_PARTITIONER_PARMETIS=OFF",
                 "-DMEDCOUPLING_PARTITIONER_PTSCOTCH=OFF",
