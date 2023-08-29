@@ -18,6 +18,8 @@ class SalomeMedcoupling(CMakePackage):
     homepage = "https://docs.salome-platform.org/latest/dev/MEDCoupling/developer/index.html"
     git = "https://git.salome-platform.org/gitpub/tools/medcoupling.git"
 
+    version("9.9.0", tag="V9_9_0")
+    version("9.8.0", tag="V9_8_0")
     version("9.7.0", tag="V9_7_0")
     version("9.6.0", tag="V9_6_0")
     version("9.5.0", tag="V9_5_0")
@@ -46,35 +48,24 @@ class SalomeMedcoupling(CMakePackage):
     depends_on("scotch@6.0.4:", when="+scotch")
     depends_on("mpi", when="+mpi")
 
+    depends_on("salome-configuration@9.9.0", when="@9.9.0")
+    depends_on("salome-configuration@9.8.0", when="@9.8.0")
     depends_on("salome-configuration@9.7.0", when="@9.7.0")
-    depends_on("salome-med@4.1.0+mpi+static", when="@9.7.0+mpi+static")
-    depends_on("salome-med@4.1.0+mpi", when="@9.7.0+mpi")
-    depends_on("salome-med@4.1.0+static", when="@9.7.0~mpi+static")
-    depends_on("salome-med@4.1.0", when="@9.7.0~mpi")
-
     depends_on("salome-configuration@9.6.0", when="@9.6.0")
-    depends_on("salome-med@4.1.0+mpi+static", when="@9.6.0+mpi+static")
-    depends_on("salome-med@4.1.0+mpi", when="@9.6.0+mpi")
-    depends_on("salome-med@4.1.0+static", when="@9.6.0~mpi+static")
-    depends_on("salome-med@4.1.0", when="@9.6.0~mpi")
-
     depends_on("salome-configuration@9.5.0", when="@9.5.0")
-    depends_on("salome-med@4.1.0+mpi+static", when="@9.5.0+mpi+static")
-    depends_on("salome-med@4.1.0+mpi", when="@9.5.0+mpi")
-    depends_on("salome-med@4.1.0+static", when="@9.5.0~mpi+static")
-    depends_on("salome-med@4.1.0", when="@9.5.0~mpi")
+
+    depends_on("salome-med@4.1.0+mpi+static", when="@9.5.0:+mpi+static")
+    depends_on("salome-med@4.1.0+mpi", when="@9.5.0:+mpi")
+    depends_on("salome-med@4.1.0+static", when="@9.5.0:~mpi+static")
+    depends_on("salome-med@4.1.0", when="@9.5.0:~mpi")
 
     depends_on("salome-configuration@9.4.0", when="@9.4.0")
-    depends_on("salome-med@4.0.0+mpi+static", when="@9.4.0+mpi+static")
-    depends_on("salome-med@4.0.0+mpi", when="@9.4.0+mpi")
-    depends_on("salome-med@4.0.0+static", when="@9.4.0~mpi+static")
-    depends_on("salome-med@4.0.0", when="@9.4.0~mpi")
-
     depends_on("salome-configuration@9.3.0", when="@9.3.0")
-    depends_on("salome-med@4.0.0+mpi+static", when="@9.3.0+mpi+static")
-    depends_on("salome-med@4.0.0+mpi", when="@9.3.0+mpi")
-    depends_on("salome-med@4.0.0+static", when="@9.3.0~mpi+static")
-    depends_on("salome-med@4.0.0", when="@9.3.0~mpi")
+
+    depends_on("salome-med@4.0.0+mpi+static", when="@:9.4.0+mpi+static")
+    depends_on("salome-med@4.0.0+mpi", when="@:9.4.0+mpi")
+    depends_on("salome-med@4.0.0+static", when="@:9.4.0~mpi+static")
+    depends_on("salome-med@4.0.0", when="@:9.4.0~mpi")
 
     def check(self):
         pass
