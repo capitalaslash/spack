@@ -45,6 +45,7 @@ class Vtk(CMakePackage):
     variant("xdmf", default=False, description="Build XDMF file support")
     variant("ffmpeg", default=False, description="Build with FFMPEG support")
     variant("mpi", default=True, description="Enable MPI support")
+    variant("seacas", default=False, description="Build SEACAS library support")
     variant("versioned_install", default=False, description="add version extension to library names")
 
     patch("gcc.patch", when="@6.1.0")
@@ -148,8 +149,8 @@ class Vtk(CMakePackage):
     depends_on("proj@4:7", when="@9:")
     depends_on("cgns@4.1.1:+mpi", when="@9.1: +mpi")
     depends_on("cgns@4.1.1:~mpi", when="@9.1: ~mpi")
-    depends_on("seacas@2021-05-12:+mpi", when="@9.1: +mpi")
-    depends_on("seacas@2021-05-12:~mpi", when="@9.1: ~mpi")
+    depends_on("seacas@2021-05-12:+mpi", when="@9.1: +seacas +mpi")
+    depends_on("seacas@2021-05-12:~mpi", when="@9.1: +seacas ~mpi")
     depends_on("nlohmann-json", when="@9.2:")
 
     # For finding Fujitsu-MPI wrapper commands
@@ -413,6 +414,11 @@ class Vtk(CMakePackage):
             # A bug in tao pegtl causes build failures with intel compilers
             if "%intel" in spec and spec.version >= Version("8.2"):
                 cmake_args.append("-DVTK_MODULE_ENABLE_VTK_IOMotionFX:BOOL=OFF")
+
+        if "+seacas" in spec:
+            cmake_args.append("-DVTK_MODULE_ENABLE_VTK_IOIOSS=YES")
+        else:
+            cmake_args.append("-DVTK_MODULE_ENABLE_VTK_IOIOSS=NO")
 
         if "+versioned_install" in spec:
             cmake_args.append("-DVTK_VERSIONED_INSTALL=ON")
