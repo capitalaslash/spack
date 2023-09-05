@@ -208,7 +208,7 @@ class Libmesh(AutotoolsPackage):
             options.append("--enable-netcdf=no")
 
         if "+vtk" in self.spec:
-            options.append("--enable-vtk")
+            options.append("--enable-vtk-required")
             options.append("--with-vtk=%s" % self.spec["vtk"].prefix)
         else:
             options.append("--disable-vtk")
@@ -256,7 +256,7 @@ class Libmesh(AutotoolsPackage):
                 options.append("--with-parmetis=PETSc")
 
         if "+petsc" in self.spec or "+slepc" in self.spec:
-            options.append("--enable-petsc=yes")
+            options.append("--enable-petsc-required")
             options.append("PETSC_DIR=%s" % self.spec["petsc"].prefix)
         else:
             options.append("--enable-petsc=no")
