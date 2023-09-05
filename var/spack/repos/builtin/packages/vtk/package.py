@@ -57,6 +57,7 @@ class Vtk(CMakePackage):
     variant("ffmpeg", default=False, description="Build with FFMPEG support")
     variant("mpi", default=True, description="Enable MPI support")
     variant("examples", default=False, description="Enable building & installing the VTK examples")
+    variant("versioned_install", default=False, description="add version extension to library names")
 
     patch("gcc.patch", when="@6.1.0")
     # patch to fix some missing stl includes
@@ -461,6 +462,11 @@ class Vtk(CMakePackage):
             # A bug in tao pegtl causes build failures with intel compilers
             if "%intel" in spec and spec.version >= Version("8.2"):
                 cmake_args.append("-DVTK_MODULE_ENABLE_VTK_IOMotionFX:BOOL=OFF")
+
+        if "+versioned_install" in spec:
+            cmake_args.append("-DVTK_VERSIONED_INSTALL=ON")
+        else:
+            cmake_args.append("-DVTK_VERSIONED_INSTALL=OFF")
 
         # -no-ipo prevents an internal compiler error from multi-file
         # optimization (https://github.com/spack/spack/issues/20471)
