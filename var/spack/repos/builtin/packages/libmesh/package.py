@@ -18,6 +18,7 @@ class Libmesh(AutotoolsPackage):
 
     version("master", branch="master", submodules=True)
 
+    version("1.7.1", sha256="0387d62773cf92356eb128ba92f767e56c298d78f4b97446e68bf288da1eb6b4")
     version("1.5.3", sha256="836d5e1de00436a02d8986f2e73b16171167569f062c706080a902c565e9d514")
     version("1.4.1", sha256="67eb7d5a9c954d891ca1386b70f138333a87a141d9c44213449ca6be69a66414")
     version("1.4.0", sha256="62d7fce89096c950d1b38908484856ea63df57754b64cde6582e7ac407c8c81d")
