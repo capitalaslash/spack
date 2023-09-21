@@ -28,7 +28,7 @@ class SalomeMedcoupling(CMakePackage):
 
     variant("static", default=False, description="Enable static library build")
     variant("mpi", default=False, description="Enable MPI")
-    variant("in64", default=False, description="Enable 64 bits indexes")
+    variant("int64", default=False, description="Enable 64 bits indexes")
     variant("partitioner", default=False, description="Enable partitioner")
     variant("metis", default=False, description="Enable Metis")
     variant("scotch", default=False, description="Enable Scotch")
@@ -101,7 +101,7 @@ class SalomeMedcoupling(CMakePackage):
         else:
             options.extend(["-DMEDCOUPLING_USE_MPI=OFF", "-DSALOME_USE_MPI=OFF"])
 
-        if "+in64" in spec:
+        if "+int64" in spec:
             options.extend(["-DMEDCOUPLING_USE_64BIT_IDS=ON"])
         else:
             options.extend(["-DMEDCOUPLING_USE_64BIT_IDS=OFF"])
