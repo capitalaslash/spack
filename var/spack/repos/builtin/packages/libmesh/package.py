@@ -308,7 +308,7 @@ class Libmesh(AutotoolsPackage):
         else:
             options.append("--enable-tbb=no")
 
-        if "+poly2tri" in spec:
+        if "+poly2tri" in self.spec:
             options.append("--enable-poly2tri=yes")
         else:
             options.append("--enable-poly2tri=no")
