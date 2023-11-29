@@ -18,6 +18,8 @@ class SalomeConfiguration(Package):
     homepage = "https://www.salome-platform.org"
     git = "https://git.salome-platform.org/gitpub/tools/configuration.git"
 
+    version("9.11.0", tag="V_9_11_0", commit="33fc859a523e9f84cabaae2c55fdc64d1be11ec0");
+    version("9.10.0", tag="V_9_10_0", commit="25f724f7a6c0000330a40c3851dcd8bc2493e1fa");
     version("9.9.0", tag="V9_9_0", commit="5e61c7330cb2e0ff39e0bf4ba7b65d1d26c824ac")
     version("9.8.0", tag="V9_8_0", commit="f1b2929d32953ac4d2056d564dab62e2e8d7c2a5")
     version("9.7.0", tag="V9_7_0", commit="b1430e72bc252867289b45de9a94041841fade06")
