@@ -20,6 +20,8 @@ class SalomeMedcoupling(CMakePackage):
 
     license("LGPL-2.1-or-later")
 
+    version("9.11.0", tag="V9_11_0", commit="1b5fb5650409b0ad3a61da3215496f2adf2dae02");
+    version("9.10.0", tag="V9_10_0", commit="fe2e38d301902c626f644907e00e499552bb2fa5");
     version("9.9.0", tag="V9_9_0", commit="5b2a9cc1cc18fffd5674a589aacf368008983b45")
     version("9.8.0", tag="V9_8_0", commit="8a82259c9a9228c54efeddd52d4afe6c0e397c30")
     version("9.7.0", tag="V9_7_0", commit="773434a7f2a5cbacc2f50e93ea6d6a48a157acd9")
@@ -50,24 +52,24 @@ class SalomeMedcoupling(CMakePackage):
     depends_on("scotch@6.0.4:", when="+scotch")
     depends_on("mpi", when="+mpi")
 
-    depends_on("salome-configuration@9.9.0", when="@9.9.0")
-    depends_on("salome-configuration@9.8.0", when="@9.8.0")
-    depends_on("salome-configuration@9.7.0", when="@9.7.0")
-    depends_on("salome-configuration@9.6.0", when="@9.6.0")
-    depends_on("salome-configuration@9.5.0", when="@9.5.0")
+    for _ver in ("9.3.0", "9.4.0", "9.5.0", "9.6.0", "9.7.0", "9.8.0", "9.9.0", "9.10.0", "9.11.0"):
+        depends_on("salome-configuration@" + _ver, when="@" + _ver)
 
-    depends_on("salome-med@4.1.0+mpi+static", when="@9.5.0:+mpi+static")
-    depends_on("salome-med@4.1.0+mpi", when="@9.5.0:+mpi")
-    depends_on("salome-med@4.1.0+static", when="@9.5.0:~mpi+static")
-    depends_on("salome-med@4.1.0", when="@9.5.0:~mpi")
+    for _mpi_flag in ("~mpi", "+mpi"):
+        for _static_flag in ("~static", "+static"):
+            for _int64_flag in ("~int64", "+int64"):
+                depends_on(
+                    "salome-med@4.1.0" + _mpi_flag + _static_flag + _int64_flag,
+                    when="@9.5.0:" + _mpi_flag + _static_flag + _int64_flag
+                )
 
-    depends_on("salome-configuration@9.4.0", when="@9.4.0")
-    depends_on("salome-configuration@9.3.0", when="@9.3.0")
 
-    depends_on("salome-med@4.0.0+mpi+static", when="@:9.4.0+mpi+static")
-    depends_on("salome-med@4.0.0+mpi", when="@:9.4.0+mpi")
-    depends_on("salome-med@4.0.0+static", when="@:9.4.0~mpi+static")
-    depends_on("salome-med@4.0.0", when="@:9.4.0~mpi")
+    for _mpi_flag in ("~mpi", "+mpi"):
+        for _static_flag in ("~static", "+static"):
+            depends_on(
+                "salome-med@4.0.0" + _mpi_flag + _static_flag,
+                when="@:9.4.0" + _mpi_flag + _static_flag
+            )
 
     def check(self):
         pass
