@@ -28,6 +28,7 @@ class SalomeMed(CMakePackage):
     variant("mpi", default=False, description="Enable MPI")
     variant("static", default=False, description="Enable static library build")
     variant("fortran", default=False, description="Enable Fortran")
+    variant("int64", default=False, description="use 64-bit long integers.")
 
     depends_on("mpi", when="+mpi")
 
@@ -80,6 +81,11 @@ class SalomeMed(CMakePackage):
             options.extend(["-DCMAKE_Fortran_COMPILER=%s" % self.compiler.fc])
         else:
             options.extend(["-DCMAKE_Fortran_COMPILER="])
+
+        if "+int64" in spec:
+            options.append("-DMED_MEDINT_TYPE=long")
+        else:
+            options.append("-DMED_MEDINT_TYPE=int")
 
         options.extend(
             [
