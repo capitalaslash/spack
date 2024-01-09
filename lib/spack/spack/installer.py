@@ -2288,6 +2288,9 @@ class BuildProcessInstaller:
         # whether to restage
         self.restage = (not is_develop) and install_args.get("restage", False)
 
+        # whether to restage
+        self.restage = install_args.get("restage", False)
+
         # whether to skip the patch phase
         self.skip_patch = install_args.get("skip_patch", False)
 
