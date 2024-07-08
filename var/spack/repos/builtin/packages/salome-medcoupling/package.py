@@ -59,8 +59,16 @@ class SalomeMedcoupling(CMakePackage):
         for _static_flag in ("~static", "+static"):
             for _int64_flag in ("~int64", "+int64"):
                 depends_on(
+                    "salome-med@4.1.1" + _mpi_flag + _static_flag + _int64_flag,
+                    when="@9.11.0:" + _mpi_flag + _static_flag + _int64_flag
+                )
+
+    for _mpi_flag in ("~mpi", "+mpi"):
+        for _static_flag in ("~static", "+static"):
+            for _int64_flag in ("~int64", "+int64"):
+                depends_on(
                     "salome-med@4.1.0" + _mpi_flag + _static_flag + _int64_flag,
-                    when="@9.5.0:" + _mpi_flag + _static_flag + _int64_flag
+                    when="@9.5.0:9.10.0" + _mpi_flag + _static_flag + _int64_flag
                 )
 
 
