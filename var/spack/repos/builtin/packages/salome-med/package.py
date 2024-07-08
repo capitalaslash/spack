@@ -33,8 +33,8 @@ class SalomeMed(CMakePackage):
 
     depends_on("mpi", when="+mpi")
 
-    depends_on("hdf5@1.10.3+mpi", when="@4.1.0+mpi")
-    depends_on("hdf5@1.10.3~mpi", when="@4.1.0~mpi")
+    depends_on("hdf5@1.10.3+mpi", when="@4.1.0:+mpi")
+    depends_on("hdf5@1.10.3~mpi", when="@4.1.0:~mpi")
 
     depends_on("hdf5@1.10.3+mpi", when="@4.0.0+mpi")
     depends_on("hdf5@1.10.3~mpi", when="@4.0.0~mpi")
