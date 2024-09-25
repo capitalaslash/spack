@@ -32,7 +32,7 @@ class SalomeMedcoupling(CMakePackage):
 
     variant("static", default=False, description="Enable static library build")
     variant("mpi", default=False, description="Enable MPI")
-    variant("int64", default=False, description="Enable 64 bits indexes")
+    variant("int64", default=False, description="Use 64 bits indices")
     variant("partitioner", default=False, description="Enable partitioner")
     variant("metis", default=False, description="Enable Metis")
     variant("scotch", default=False, description="Enable Scotch")
@@ -52,32 +52,18 @@ class SalomeMedcoupling(CMakePackage):
     depends_on("scotch@6.0.4:", when="+scotch")
     depends_on("mpi", when="+mpi")
 
-    for _ver in ("9.3.0", "9.4.0", "9.5.0", "9.6.0", "9.7.0", "9.8.0", "9.9.0", "9.10.0", "9.11.0"):
-        depends_on("salome-configuration@" + _ver, when="@" + _ver)
+    for _ver in ("9.3.0", "9.4.0", "9.5.0", "9.6.0", "9.7.0"):
+        depends_on("salome-configuration@{}".format(_ver), when="@{}".format(_ver))
 
-    for _mpi_flag in ("~mpi", "+mpi"):
-        for _static_flag in ("~static", "+static"):
-            for _int64_flag in ("~int64", "+int64"):
-                depends_on(
-                    "salome-med@4.1.1" + _mpi_flag + _static_flag + _int64_flag,
-                    when="@9.11.0:" + _mpi_flag + _static_flag + _int64_flag
-                )
+    for _flags in zip(("~mpi", "+mpi"), ("~static", "+static"), ("~int64", "+int64")):
+        depends_on(
+            "salome-med@4.1.0{}{}{}".format(*_flags), when="@9.5.0:9.7.0{}{}{}".format(*_flags)
+        )
 
-    for _mpi_flag in ("~mpi", "+mpi"):
-        for _static_flag in ("~static", "+static"):
-            for _int64_flag in ("~int64", "+int64"):
-                depends_on(
-                    "salome-med@4.1.0" + _mpi_flag + _static_flag + _int64_flag,
-                    when="@9.5.0:9.10.0" + _mpi_flag + _static_flag + _int64_flag
-                )
-
-
-    for _mpi_flag in ("~mpi", "+mpi"):
-        for _static_flag in ("~static", "+static"):
-            depends_on(
-                "salome-med@4.0.0" + _mpi_flag + _static_flag,
-                when="@:9.4.0" + _mpi_flag + _static_flag
-            )
+    for _flags in zip(("~mpi", "+mpi"), ("~static", "+static"), ("~int64", "+int64")):
+        depends_on(
+            "salome-med@4.0.0{}{}{}".format(*_flags), when="@9.3.0:9.4.0{}{}{}".format(*_flags)
+        )
 
     def check(self):
         pass
