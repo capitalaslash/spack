@@ -20,8 +20,10 @@ class SalomeMedcoupling(CMakePackage):
 
     license("LGPL-2.1-or-later")
 
-    version("9.11.0", tag="V9_11_0", commit="1b5fb5650409b0ad3a61da3215496f2adf2dae02");
-    version("9.10.0", tag="V9_10_0", commit="fe2e38d301902c626f644907e00e499552bb2fa5");
+    version("9.13.0", tag="V9_13_0", commit="8bea530c92cd907ae859ef11fd95b2db54b2894a")
+    version("9.12.0", tag="V9_12_0", commit="28e485bde1c26dc835ec7acf449b1d519997ddce")
+    version("9.11.0", tag="V9_11_0", commit="1b5fb5650409b0ad3a61da3215496f2adf2dae02")
+    version("9.10.0", tag="V9_10_0", commit="fe2e38d301902c626f644907e00e499552bb2fa5")
     version("9.9.0", tag="V9_9_0", commit="5b2a9cc1cc18fffd5674a589aacf368008983b45")
     version("9.8.0", tag="V9_8_0", commit="8a82259c9a9228c54efeddd52d4afe6c0e397c30")
     version("9.7.0", tag="V9_7_0", commit="773434a7f2a5cbacc2f50e93ea6d6a48a157acd9")
@@ -52,15 +54,17 @@ class SalomeMedcoupling(CMakePackage):
     depends_on("scotch@6.0.4:", when="+scotch")
     depends_on("mpi", when="+mpi")
 
-    for _ver in ("9.3.0", "9.4.0", "9.5.0", "9.6.0", "9.7.0"):
+    for _min_ver in range(3, 14):
+        _ver = "9.{}.0".format(_min_ver)
         depends_on("salome-configuration@{}".format(_ver), when="@{}".format(_ver))
 
     for _flags in zip(("~mpi", "+mpi"), ("~static", "+static"), ("~int64", "+int64")):
         depends_on(
-            "salome-med@4.1.0{}{}{}".format(*_flags), when="@9.5.0:9.7.0{}{}{}".format(*_flags)
+            "salome-med@4.1.1{}{}{}".format(*_flags), when="@9.12.0:9.13.0{}{}{}".format(*_flags)
         )
-
-    for _flags in zip(("~mpi", "+mpi"), ("~static", "+static"), ("~int64", "+int64")):
+        depends_on(
+            "salome-med@4.1.0{}{}{}".format(*_flags), when="@9.5.0:9.11.0{}{}{}".format(*_flags)
+        )
         depends_on(
             "salome-med@4.0.0{}{}{}".format(*_flags), when="@9.3.0:9.4.0{}{}{}".format(*_flags)
         )
