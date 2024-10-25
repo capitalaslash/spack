@@ -38,17 +38,10 @@ class SalomeMed(CMakePackage):
 
     depends_on("mpi", when="+mpi")
 
-    depends_on("hdf5@1.10.3+mpi", when="@4.1.0+mpi")
-    depends_on("hdf5@1.10.3~mpi", when="@4.1.0~mpi")
-
-    depends_on("hdf5@1.10.3+mpi", when="@4.0.0+mpi")
-    depends_on("hdf5@1.10.3~mpi", when="@4.0.0~mpi")
-
-    depends_on("hdf5@1.8.14+mpi", when="@3.3.1+mpi")
-    depends_on("hdf5@1.8.14~mpi", when="@3.3.1~mpi")
-
-    depends_on("hdf5@1.8.14+mpi", when="@3.2.0+mpi")
-    depends_on("hdf5@1.8.14~mpi", when="@3.2.0~mpi")
+    for _mpi_flag in ("~mpi", "+mpi"):
+        depends_on("hdf5@1.12{}".format(_mpi_flag), when="@5:{}".format(_mpi_flag))
+        depends_on("hdf5@1.10{}".format(_mpi_flag), when="@4{}".format(_mpi_flag))
+        depends_on("hdf5@1.8{}".format(_mpi_flag), when="@3{}".format(_mpi_flag))
 
     patch("MAJ_400_410_champs.patch", when="@4.1.0+static", working_dir="./tools/medimport/4.0.0")
 
