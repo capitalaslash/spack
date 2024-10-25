@@ -55,19 +55,24 @@ class SalomeMedcoupling(CMakePackage):
     depends_on("mpi", when="+mpi")
 
     for _min_ver in range(3, 14):
-        _ver = "9.{}.0".format(_min_ver)
-        depends_on("salome-configuration@{}".format(_ver), when="@{}".format(_ver))
+        _ver = f"9.{_min_ver}.0"
+        depends_on(f"salome-configuration@{_ver}", when=f"@{_ver}")
 
-    for _flags in zip(("~mpi", "+mpi"), ("~static", "+static"), ("~int64", "+int64")):
-        depends_on(
-            "salome-med@4.1.1{}{}{}".format(*_flags), when="@9.12.0:9.13.0{}{}{}".format(*_flags)
-        )
-        depends_on(
-            "salome-med@4.1.0{}{}{}".format(*_flags), when="@9.5.0:9.11.0{}{}{}".format(*_flags)
-        )
-        depends_on(
-            "salome-med@4.0.0{}{}{}".format(*_flags), when="@9.3.0:9.4.0{}{}{}".format(*_flags)
-        )
+    for _mpi_variant in ("~mpi", "+mpi"):
+        for _static_variant in ("~static", "+static"):
+            for _int64_variant in ("~int64", "+int64"):
+                depends_on(
+                    f"salome-med@4.1.1{_mpi_variant}{_static_variant}{_int64_variant}+fortran",
+                    when=f"@9.11.0:{_mpi_variant}{_static_variant}{_int64_variant}",
+                )
+                depends_on(
+                    f"salome-med@4.1.0{_mpi_variant}{_static_variant}{_int64_variant}+fortran",
+                    when=f"@9.5.0:9.10.0{_mpi_variant}{_static_variant}{_int64_variant}",
+                )
+                depends_on(
+                    f"salome-med@4.0.0{_mpi_variant}{_static_variant}{_int64_variant}+fortran",
+                    when=f"@9.3.0:9.4.0{_mpi_variant}{_static_variant}{_int64_variant}",
+                )
 
     def check(self):
         pass
@@ -80,13 +85,9 @@ class SalomeMedcoupling(CMakePackage):
             env.set("SCOTCH_ROOT_DIR", self.spec["scotch"].prefix)
 
     def setup_run_environment(self, env):
+        python_ver = self.spec["python"].version.up_to(2)
         env.prepend_path(
-            "PYTHONPATH",
-            join_path(
-                self.prefix.lib,
-                "python{0}".format(self.spec["python"].version.up_to(2)),
-                "site-packages",
-            ),
+            "PYTHONPATH", join_path(self.prefix.lib, f"python{python_ver}", "site-packages")
         )
 
     def cmake_args(self):
