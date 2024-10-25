@@ -54,35 +54,20 @@ class SalomeMedcoupling(CMakePackage):
     depends_on("scotch@6.0.4:", when="+scotch")
     depends_on("mpi", when="+mpi")
 
-    depends_on("salome-configuration@9.7.0", when="@9.7.0")
-    depends_on("salome-med@4.1.0+mpi+static", when="@9.7.0+mpi+static")
-    depends_on("salome-med@4.1.0+mpi", when="@9.7.0+mpi")
-    depends_on("salome-med@4.1.0+static", when="@9.7.0~mpi+static")
-    depends_on("salome-med@4.1.0", when="@9.7.0~mpi")
+    for _min_ver in range(3, 14):
+        _ver = "9.{}.0".format(_min_ver)
+        depends_on("salome-configuration@{}".format(_ver), when="@{}".format(_ver))
 
-    depends_on("salome-configuration@9.6.0", when="@9.6.0")
-    depends_on("salome-med@4.1.0+mpi+static", when="@9.6.0+mpi+static")
-    depends_on("salome-med@4.1.0+mpi", when="@9.6.0+mpi")
-    depends_on("salome-med@4.1.0+static", when="@9.6.0~mpi+static")
-    depends_on("salome-med@4.1.0", when="@9.6.0~mpi")
-
-    depends_on("salome-configuration@9.5.0", when="@9.5.0")
-    depends_on("salome-med@4.1.0+mpi+static", when="@9.5.0+mpi+static")
-    depends_on("salome-med@4.1.0+mpi", when="@9.5.0+mpi")
-    depends_on("salome-med@4.1.0+static", when="@9.5.0~mpi+static")
-    depends_on("salome-med@4.1.0", when="@9.5.0~mpi")
-
-    depends_on("salome-configuration@9.4.0", when="@9.4.0")
-    depends_on("salome-med@4.0.0+mpi+static", when="@9.4.0+mpi+static")
-    depends_on("salome-med@4.0.0+mpi", when="@9.4.0+mpi")
-    depends_on("salome-med@4.0.0+static", when="@9.4.0~mpi+static")
-    depends_on("salome-med@4.0.0", when="@9.4.0~mpi")
-
-    depends_on("salome-configuration@9.3.0", when="@9.3.0")
-    depends_on("salome-med@4.0.0+mpi+static", when="@9.3.0+mpi+static")
-    depends_on("salome-med@4.0.0+mpi", when="@9.3.0+mpi")
-    depends_on("salome-med@4.0.0+static", when="@9.3.0~mpi+static")
-    depends_on("salome-med@4.0.0", when="@9.3.0~mpi")
+    for _flags in zip(("~mpi", "+mpi"), ("~static", "+static"), ("~int64", "+int64")):
+        depends_on(
+            "salome-med@4.1.1{}{}{}".format(*_flags), when="@9.12.0:9.13.0{}{}{}".format(*_flags)
+        )
+        depends_on(
+            "salome-med@4.1.0{}{}{}".format(*_flags), when="@9.5.0:9.11.0{}{}{}".format(*_flags)
+        )
+        depends_on(
+            "salome-med@4.0.0{}{}{}".format(*_flags), when="@9.3.0:9.4.0{}{}{}".format(*_flags)
+        )
 
     def check(self):
         pass
