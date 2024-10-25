@@ -16,7 +16,7 @@ class SalomeMed(CMakePackage):
     maintainers("franciskloss")
 
     homepage = "https://docs.salome-platform.org/latest/dev/MEDCoupling/developer/med-file.html"
-    url = "ftp://ftp.cea.fr/pub/salome/prerequisites/med-4.1.0.tar.gz"
+    url = "ftp://ftp.cea.fr/pub/salome/prerequisites/med-4.1.1.tar.gz"
 
     license("LGPL-3.0-only")
 
